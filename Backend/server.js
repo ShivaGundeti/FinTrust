@@ -34,7 +34,7 @@ app.get("/(.*)/", (req, res) => {
 
 
 app.use(cors({
-  origin: "https://fintrust-ogl3.onrender.com",  // frontend origin
+  origin: "https://fintrust-3q8n.onrender.com",  // frontend origin
   credentials: true,                // allow cookies to be sent
 }));
 app.use(express.json()); 
