@@ -26,10 +26,14 @@ const frontendPath = path.resolve(__dirname, "../Frontend/SmartBank/dist");
 app.use(express.static(frontendPath));
 
 
-
-app.get("/(.*)/", (req, res) => {
-  res.sendFile(path.j(frontendPath, "index.html"));
-});
+const APP_DIR = "../Frontend/SmartBank/dist"
+// app.get("/(.*)/", (req, res) => {
+//   res.sendFile(path.j(frontendPath, "index.html"));
+// });
+app.get('/(*.*)/', express.static(path.join(__dirname, APP_DIR)));
+app.all('/(.*)/', (req, res) => {
+  res.sendFile(path.join(__dirname, APP_DIR, 'index.html'))
+})
 
 
 
