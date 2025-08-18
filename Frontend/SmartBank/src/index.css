@@ -1,0 +1,17 @@
+@import "tailwindcss";
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+@layer utilities {
+  /* Hide both vertical and horizontal scrollbars, keep scroll working */
+  .no-scrollbar {
+    -ms-overflow-style: none;    /* IE/Edge */
+    scrollbar-width: none;       /* Firefox */
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    width: 0px;                  /* vertical */
+    height: 0px;                 /* horizontal */
+  }
+}
