@@ -16,7 +16,7 @@ const Aisidebar = () => {
          
           try {
            const prompt = chatInput
-         const response = await axios.post("https://fintrust-3q8n.onrender.com/ai",{prompt},{withCredentials:true})
+         const response = await axios.post("/ai",{prompt},{withCredentials:true})
          console.log(response?.data?.success);
          return response?.data?.success
           } catch (error) {

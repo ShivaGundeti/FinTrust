@@ -44,7 +44,7 @@ export default function RegisterPage() {
       
       try {
         await axios.post(
-          "https://fintrust-3q8n.onrender.com/auth/register",
+          "/auth/register",
           form
         );
         navigate('/login')

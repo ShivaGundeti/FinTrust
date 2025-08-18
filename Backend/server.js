@@ -30,15 +30,12 @@ const APP_DIR = "../Frontend/SmartBank/dist"
 // app.get("/(.*)/", (req, res) => {
 //   res.sendFile(path.j(frontendPath, "index.html"));
 // });
-app.get('/(*.*)/', express.static(path.join(__dirname, APP_DIR)));
-app.all('/(.*)/', (req, res) => {
-  res.sendFile(path.join(__dirname, APP_DIR, 'index.html'))
-})
+
 
 
 
 app.use(cors({
-  origin: "https://fintrust-3q8n.onrender.com",  // frontend origin
+  origin: "",  // frontend origin
   credentials: true,                // allow cookies to be sent
 }));
 app.use(express.json()); 
@@ -93,6 +90,10 @@ Rules:
 })
 
 const port = process.env.PORT || 3000
+app.get('*.*', express.static(path.join(__dirname, APP_DIR)));
+app.all('*', (req, res) => {
+  res.sendFile(path.join(__dirname, APP_DIR, 'index.html'))
+})
 connectDB().then(()=>{
     app.listen(port,()=>{
     console.log("server running");

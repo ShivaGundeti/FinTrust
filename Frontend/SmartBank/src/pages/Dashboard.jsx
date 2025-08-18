@@ -31,7 +31,7 @@ export default function Dashboard() {
   // Fetch current user
   async function userdata() {
     try {
-      const response = await axios.get("https://fintrust-3q8n.onrender.com/auth/getUser", { withCredentials: true });
+      const response = await axios.get("/auth/getUser", { withCredentials: true });
       setUser(response?.data?.userdata);
     } catch (error) {
       console.error("Failed to get user:", error);
@@ -41,7 +41,7 @@ export default function Dashboard() {
   // Fetch all users for contacts
   async function GetUsers() {
     try {
-      const response = await axios.get("https://fintrust-3q8n.onrender.com/auth/getUsers", { withCredentials: true });
+      const response = await axios.get("/auth/getUsers", { withCredentials: true });
       setExistingUsers(response?.data?.Users);
     } catch (error) {
       console.error("Failed to get users:", error);
@@ -59,7 +59,7 @@ export default function Dashboard() {
    
     try {
      const prompt = chatInput
-   const response = await axios.post("https://fintrust-3q8n.onrender.com/ai",{prompt},{withCredentials:true})
+   const response = await axios.post("/ai",{prompt},{withCredentials:true})
    console.log(response?.data?.success);
    return response?.data?.success
     } catch (error) {
