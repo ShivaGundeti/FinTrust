@@ -1,58 +1,22 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import jwt from "jsonwebtoken";
 import User from "../model/Usermodel.js";
-
+import dotenv from "dotenv"
+dotenv.config()
 import OpenAI from 'openai';
 const openai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
-  apiKey: "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",
+  apiKey: process.env.DEEPSEEK_API_KEY,
   defaultHeaders: {
-    "HTTP-Referer": "<YOUR_SITE_URL>", // Optional. Site URL for rankings on openrouter.ai.
-    "X-Title": "<YOUR_SITE_NAME>", // Optional. Site title for rankings on openrouter.ai.
+    "HTTP-Referer": "<YOUR_SITE_URL>", 
+    "X-Title": "<YOUR_SITE_NAME>",
   },
 });
-async function main() {
- 
-}
+
 
 
 export async function AnswerTransactions(req, res) {
-//   try {
 
-
-//     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-//     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-
-//     // Summarize last 20 transactions to avoid exceeding input limits
-
-
-//     // Send request to Gemini with correct content array
-//     const response = await model.generateContent({
-//       content: [
-//         {
-//           type: "text",
-//           text: finalPrompt
-//         }
-//       ]
-//     });
-
-//     // Safely extract AI reply
-//     let aiReply = response.output_text;
-//     if (!aiReply && response.response?.candidates?.length > 0) {
-//       const candidate = response.response.candidates[0];
-//       if (candidate?.content?.length > 0) {
-//         aiReply = candidate.content.map(p => p.text).join("\n");
-//       }
-//     }
-
-//     if (!aiReply) aiReply = "No response generated";
-
-//     res.status(200).json({ success: aiReply });
-
-//   } catch (error) {
-//     console.error("AnswerTransactions error:", error);
-//     res.status(500).json({ error: "Something went wrong" });
-//   }
     const { prompt } = req.body;
     const token = req.cookies.token;
 
