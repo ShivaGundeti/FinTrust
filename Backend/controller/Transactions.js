@@ -52,8 +52,6 @@ export async function Sender(req, res) {
     res.status(200).json({
       success: true,
       message: "Transaction completed",
-      receiver,
-      sender
     });
   } catch (error) {
     res.status(500).json({ error: error.message });

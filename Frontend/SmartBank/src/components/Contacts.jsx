@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 
-function SendMoney({ currentUser, contacts,refreshUser,reload }) {
+function SendMoney({ currentUser, contacts,refreshUser }) {
 
     const [Number, setNumber] = useState("")
   const [selectedContact, setSelectedContact] = useState("");
@@ -35,7 +35,7 @@ const handlePinChange = (value, index) => {
 
   const sendamount = async ()=>{
    try {
-     await axios.post("/payment/send",{
+     await axios.post("https://fintrust-3q8n.onrender.com/payment/send",{
          senderid: currentUser._id,
          receiverid:selectedContact._id,
          amount: +amount,
@@ -92,6 +92,7 @@ const handlePinChange = (value, index) => {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
+      
     </>
       )}
      

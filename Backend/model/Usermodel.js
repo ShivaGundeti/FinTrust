@@ -7,7 +7,8 @@ const TransactionSchema = new mongoose.Schema(
     type: { type: String, enum: ["sent", "received"], required: true },
     date: { type: Date, default: Date.now },
     otherUserId: { type: mongoose.Schema.Types.ObjectId, ref: "user"},
-    otherUserName: { type: String}
+    otherUserName: { type: String},
+    category:{type:String}
   },
   { _id: false } 
 );

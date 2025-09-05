@@ -15,6 +15,7 @@ import SendMoney from "../components/Contacts";
 import QuickContacts from "../components/QuickContacts";
 import Transaction from "../components/Transaction";
 import Navbar from "../components/Navbar";
+import ExpenseChart from "../components/Charts";
 // import Goals from "../components/Navbar";
    import { useNavigate } from 'react-router-dom';
 import Goals from "../components/Goals";
@@ -31,7 +32,7 @@ export default function Dashboard() {
   // Fetch current user
   async function userdata() {
     try {
-      const response = await axios.get("/auth/getUser", { withCredentials: true });
+      const response = await axios.get("https://fintrust-3q8n.onrender.com/auth/getUser", { withCredentials: true });
       setUser(response?.data?.userdata);
     } catch (error) {
       console.error("Failed to get user:", error);
@@ -41,7 +42,7 @@ export default function Dashboard() {
   // Fetch all users for contacts
   async function GetUsers() {
     try {
-      const response = await axios.get("/auth/getUsers", { withCredentials: true });
+      const response = await axios.get("https://fintrust-3q8n.onrender.com/auth/getUsers", { withCredentials: true });
       setExistingUsers(response?.data?.Users);
     } catch (error) {
       console.error("Failed to get users:", error);
@@ -59,9 +60,9 @@ export default function Dashboard() {
    
     try {
      const prompt = chatInput
-   const response = await axios.post("/ai",{prompt},{withCredentials:true})
-   console.log(response?.data?.success);
-   return response?.data?.success
+   const response = await axios.post("https://fintrust-3q8n.onrender.com/ai/getTransaction",{prompt},{withCredentials:true})
+   console.log(response?.data?.success?.content);
+   return response?.data?.success?.content
     } catch (error) {
       console.error("AI request failed:", error);
       return "Sorry, AI could not process your request.";
@@ -164,6 +165,7 @@ export default function Dashboard() {
           </div>
 
           
+         <ExpenseChart/>
          <div className="flex gap-6 sm:flex-row flex-col">
           <div onClick={()=>{navigate("/dashboard/transaction")}}>
            <Transaction currentUser={user}  />
