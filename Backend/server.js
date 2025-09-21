@@ -31,7 +31,7 @@ const APP_DIR = "../Frontend/SmartBank/dist"
 // });
 //https://fintrust-3q8n.onrender.com
 app.use(cors({
-  origin: "http://localhost:5173",  // frontend origin
+  origin: "https://fintrust-3q8n.onrender.com",  // frontend origin
   credentials: true,                // allow cookies to be sent
 }));
 app.use(express.json()); 
