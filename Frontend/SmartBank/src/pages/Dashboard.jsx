@@ -31,7 +31,7 @@ export default function Dashboard() {
   // Fetch current user
   async function userdata() {
     try {
-      const response = await axios.get("https://fintrust-backend.onrender.com/auth/getUser", { withCredentials: true });
+      const response = await axios.get("https://fintrust-3q8n.onrender.com/auth/getUser", { withCredentials: true });
       setUser(response?.data?.userdata);
     } catch (error) {
       console.error("Failed to get user:", error);
@@ -41,7 +41,7 @@ export default function Dashboard() {
   // Fetch all users for contacts
   async function GetUsers() {
     try {
-      const response = await axios.get("https://fintrust-backend.onrender.com/auth/getUsers", { withCredentials: true });
+      const response = await axios.get("https://fintrust-3q8n.onrender.com/auth/getUsers", { withCredentials: true });
       setExistingUsers(response?.data?.Users);
     } catch (error) {
       console.error("Failed to get users:", error);
@@ -56,7 +56,7 @@ export default function Dashboard() {
 async function askAI(prompt) {
   if (!prompt) return "Please ask a valid question.";
   try {
-    const response = await axios.post("https://fintrust-backend.onrender.com/ai/getTransaction", { prompt }, { withCredentials: true });
+    const response = await axios.post("https://fintrust-3q8n.onrender.com/ai/getTransaction", { prompt }, { withCredentials: true });
 
     // Just return the raw success string
     return response?.data?.success || "AI did not return a response.";

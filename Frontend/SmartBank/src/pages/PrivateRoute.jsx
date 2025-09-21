@@ -8,7 +8,7 @@ const PrivateRoute = ({ children }) => {
 
   useEffect(() => {
     axios
-      .get("https://fintrust-backend.onrender.com/auth/check", { withCredentials: true })
+      .get("https://fintrust-3q8n.onrender.com/auth/check", { withCredentials: true })
       .then((res) => {      
         setLoggedIn(res.data.loggedIn);
       })
