@@ -45,7 +45,7 @@ const Aisidebar = () => {
   
       <div className=" flex flex-col bg-white w-86 shadow-md p-4 md:p-6  h-screen border border-gray-200">
             <h2 className="text-base md:text-lg font-semibold mb-4 flex items-center gap-2 text-gray-800">
-              <MessageSquare className="w-5 h-5 text-blue-600" /> Ask FinTrust
+              <MessageSquare className="w-5 h-5 text-blue-600" /> Ask BankOfJhonathan
             </h2>
             <div className="h-full overflow-y-auto border rounded-lg p-3 md:p-4 mb-4 space-y-3 bg-gray-50">
               {chatMessages.map(({ fromAI, text }, i) => (

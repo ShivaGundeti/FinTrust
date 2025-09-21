@@ -11,7 +11,7 @@ export default function HomePage() {
       <div className="text-center relative z-10 max-w-2xl px-6">
         {/* Logo / Title */}
         <h1 className="text-5xl font-extrabold text-blue-900 drop-shadow-md">
-         FinTrust
+         BankOfJhonathan
         </h1>
         <p className="mt-4 text-gray-600 text-lg">
           Your money, your control — send, receive, and manage with ease.

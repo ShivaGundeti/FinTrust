@@ -34,7 +34,7 @@ export default function Login() {
   try {
     if (validate()) {
       
-     const response = await axios.post("http://localhost:3000/auth/login", formData, {
+     const response = await axios.post("https://fintrust-backend.onrender.com/auth/login", formData, {
         withCredentials: true, 
       });
     
@@ -61,7 +61,7 @@ export default function Login() {
       <div className="flex flex-col justify-center items-center sm:w-1/2 bg-blue-700 text-white p-8">
        <h1 className="text-5xl font-extrabold tracking-wide mb-4 drop-shadow-lg">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-white">
-            FinTrust
+            BankOfJhonathan
           </span>
         </h1>
         <p className="mt-4 text-lg text-center">

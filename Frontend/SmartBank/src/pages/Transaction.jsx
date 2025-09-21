@@ -9,7 +9,7 @@ const Transactionpage = () => {
     async function getNewdetails(){
       
      try {
-      const response = await axios.get("http://localhost:3000/auth/getUser", { withCredentials: true });
+      const response = await axios.get("https://fintrust-backend.onrender.com/auth/getUser", { withCredentials: true });
     const fetched = response.data?.userdata?.transactions || [];
 
     setTransactions(prev => {

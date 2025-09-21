@@ -44,7 +44,7 @@ export default function RegisterPage() {
       
       try {
         await axios.post(
-          "http://localhost:3000/auth/register",
+          "https://fintrust-backend.onrender.com/auth/register",
           form
         );
         navigate('/login')
@@ -60,7 +60,7 @@ export default function RegisterPage() {
       <div className="md:w-1/2 bg-gradient-to-b from-blue-600 to-blue-800 text-white flex flex-col justify-center items-center p-10">
         <h1 className="text-5xl font-extrabold tracking-wide mb-4 drop-shadow-lg">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-white">
-            FinTrust
+            BankOfJhonathan
           </span>
         </h1>
         <p className="text-lg text-blue-100 text-center max-w-md">
