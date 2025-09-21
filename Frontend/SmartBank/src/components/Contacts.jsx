@@ -35,7 +35,7 @@ const handlePinChange = (value, index) => {
 
   const sendamount = async ()=>{
    try {
-     await axios.post("https://fintrust-3q8n.onrender.com/payment/send",{
+     await axios.post("http://localhost:3000/payment/send",{
          senderid: currentUser._id,
          receiverid:selectedContact._id,
          amount: +amount,

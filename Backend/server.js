@@ -29,12 +29,9 @@ const APP_DIR = "../Frontend/SmartBank/dist"
 // app.get("/(.*)/", (req, res) => {
 //   res.sendFile(path.j(frontendPath, "index.html"));
 // });
-
-
-
-
+//https://fintrust-3q8n.onrender.com
 app.use(cors({
-  origin: "https://fintrust-3q8n.onrender.com",  // frontend origin
+  origin: "http://localhost:5173",  // frontend origin
   credentials: true,                // allow cookies to be sent
 }));
 app.use(express.json()); 

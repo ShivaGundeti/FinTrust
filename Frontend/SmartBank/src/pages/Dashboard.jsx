@@ -1,13 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
-  CreditCard,
-  DollarSign,
-  Bell,
-  TrendingUp,
   Send,
-  UserCircle2,
   MessageSquare,
-  Wallet,
   Coins,
 } from "lucide-react";
 import axios from "axios";
@@ -16,9 +10,9 @@ import QuickContacts from "../components/QuickContacts";
 import Transaction from "../components/Transaction";
 import Navbar from "../components/Navbar";
 import ExpenseChart from "../components/Charts";
-// import Goals from "../components/Navbar";
-   import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Goals from "../components/Goals";
+
 export default function Dashboard() {
   const navigate = useNavigate();
   const [ExistingUsers, setExistingUsers] = useState([]);
@@ -29,10 +23,15 @@ export default function Dashboard() {
   ]);
   const chatEndRef = useRef(null);
 
+  // Scroll to bottom on new message
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chatMessages]);
+
   // Fetch current user
   async function userdata() {
     try {
-      const response = await axios.get("https://fintrust-3q8n.onrender.com/auth/getUser", { withCredentials: true });
+      const response = await axios.get("http://localhost:3000/auth/getUser", { withCredentials: true });
       setUser(response?.data?.userdata);
     } catch (error) {
       console.error("Failed to get user:", error);
@@ -42,60 +41,56 @@ export default function Dashboard() {
   // Fetch all users for contacts
   async function GetUsers() {
     try {
-      const response = await axios.get("https://fintrust-3q8n.onrender.com/auth/getUsers", { withCredentials: true });
+      const response = await axios.get("http://localhost:3000/auth/getUsers", { withCredentials: true });
       setExistingUsers(response?.data?.Users);
     } catch (error) {
       console.error("Failed to get users:", error);
     }
   }
-  const reload = ()=>{
-    location.reload()
+
+  const reload = () => {
+    location.reload();
+  };
+
+  // Ask AI a custom question
+async function askAI(prompt) {
+  if (!prompt) return "Please ask a valid question.";
+  try {
+    const response = await axios.post("http://localhost:3000/ai/getTransaction", { prompt }, { withCredentials: true });
+
+    // Just return the raw success string
+    return response?.data?.success || "AI did not return a response.";
+  } catch (error) {
+    console.error("AI request failed:", error);
+    return "Sorry, AI could not process your request.";
   }
+}
 
 
-  // // Ask AI a custom question
-  async function askAI(prompt) {
-    
-    if (!prompt) return "Please ask a valid question.";
-   
-    try {
-     const prompt = chatInput
-   const response = await axios.post("https://fintrust-3q8n.onrender.com/ai/getTransaction",{prompt},{withCredentials:true})
-   console.log(response?.data?.success?.content);
-   return response?.data?.success?.content
-    } catch (error) {
-      console.error("AI request failed:", error);
-      return "Sorry, AI could not process your request.";
-    } 
-  }
+  // Handle user sending message
+  const handleSendMessage = async () => {
+    const trimmed = chatInput.trim();
+    if (!trimmed) return;
 
- 
+    // Show user message immediately
+    setChatMessages(prev => [...prev, { fromAI: false, text: trimmed }]);
+    setChatInput("");
+
+    // Ask AI and show response
+    const reply = await askAI(trimmed);
+    setChatMessages(prev => [...prev, { fromAI: true, text: reply }]);
+  };
+
   useEffect(() => {
     userdata();
     GetUsers();
   }, []);
 
-
-  const handleSendMessage = async ()=>{
-    
-   setChatMessages(prev => [...prev, { fromAI: false, text: chatInput }]);
-    setChatInput("");
-
-    
-    const reply = await askAI(chatInput);
-
-   
-    setChatMessages(prev => [...prev, { fromAI: true, text: reply }]);
-   console.log(chatMessages);
-   
- 
-  }
-
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Navbar */}
-      <Navbar/>
-    
+      <Navbar />
+
       {/* Main Content */}
       <main className="flex flex-col md:flex-row flex-grow p-4 md:p-6 gap-4 md:gap-6 w-full max-w-7xl mx-auto">
         {/* Left Panel */}
@@ -121,7 +116,7 @@ export default function Dashboard() {
             <h2 className="text-base md:text-lg font-semibold mb-4 flex items-center gap-2 text-gray-800">
               <Send className="w-5 h-5 text-blue-600" /> Send Money
             </h2>
-            <SendMoney currentUser={user} contacts={ExistingUsers} refreshUser={userdata} reload={reload}/>
+            <SendMoney currentUser={user} contacts={ExistingUsers} refreshUser={userdata} reload={reload} />
           </div>
         </section>
 
@@ -130,14 +125,16 @@ export default function Dashboard() {
           {/* Chatbot */}
           <div className="flex flex-col bg-white rounded-xl shadow-md p-4 md:p-6 h-[400px] md:h-[450px] border border-gray-200">
             <h2 className="text-base md:text-lg font-semibold mb-4 flex items-center gap-2 text-gray-800">
-              <MessageSquare className="w-5 h-5 text-blue-600" /> Ask FinTrust
+              <MessageSquare className="w-5 h-5 text-blue-600" /> Ask BankOfJonathan
             </h2>
             <div className="flex-grow overflow-y-auto border rounded-lg p-3 md:p-4 mb-4 space-y-3 bg-gray-50">
               {chatMessages.map(({ fromAI, text }, i) => (
                 <div
                   key={i}
                   className={`max-w-[80%] px-3 py-2 rounded-lg ${
-                    fromAI ? "bg-blue-100 text-blue-900 self-start" : "bg-blue-600 text-white self-end"
+                    fromAI
+                      ? "bg-blue-100 text-blue-900 self-start"
+                      : "bg-blue-600 text-white self-end"
                   }`}
                 >
                   {text}
@@ -161,19 +158,18 @@ export default function Dashboard() {
                 Send
               </button>
             </div>
-           
           </div>
 
-          
-         <ExpenseChart/>
-         <div className="flex gap-6 sm:flex-row flex-col">
-          <div onClick={()=>{navigate("/dashboard/transaction")}}>
-           <Transaction currentUser={user}  />
+          {/* Charts and other panels */}
+          <ExpenseChart />
+          <div className="flex gap-6 sm:flex-row flex-col">
+            <div onClick={() => navigate("/dashboard/transaction")}>
+              <Transaction currentUser={user} />
+            </div>
+            <div onClick={() => navigate("/dashboard/goals")}>
+              <Goals />
+            </div>
           </div>
-            <div onClick={()=>{navigate("/dashboard/goals")}}>
-           <Goals/>
-          </div>
-         </div>
         </section>
       </main>
     </div>

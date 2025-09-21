@@ -34,7 +34,7 @@ export default function Login() {
   try {
     if (validate()) {
       
-     const response = await axios.post("https://fintrust-3q8n.onrender.com/auth/login", formData, {
+     const response = await axios.post("http://localhost:3000/auth/login", formData, {
         withCredentials: true, 
       });
     
